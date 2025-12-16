@@ -15,7 +15,7 @@ const Home: React.FC = () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://picsum.photos/seed/logistics_ship/1920/1080" 
+            src="https://raw.githubusercontent.com/ThakurShatrunjai/dpglobal/aec046290271be96c9e1cbd6f3cbed5339407d82/D%20P%20GLOBAL_page-0001(1).jpg/1920/1080" 
             alt="Global Logistics" 
             className="w-full h-full object-cover"
           />
