@@ -14,13 +14,13 @@ export const COMPANY_INFO = {
   owner: "Vijay Shukla",
   tagline: "Navigating Tomorrow's Supply Chain, Today.",
   intro: "Under the visionary leadership of Vijay Shukla, D P GLOBAL redefines logistics through reliability, technological integration, and deep market expertise. We don't just move cargo; we optimize your entire value chain.",
-  address: "1204, Trade Tower, Bandra-Kurla Complex, Mumbai, MH 400051, India",
+  address: "FLAT NO. 123, 2nd FLOOR, New Four Storey, Vishal Enclave, Tagore Garden Extn., New DElhi-110027",
   emails: {
-    sales: "sales@dpglobal.com",
+    sales: "accounts@dpglobal.co.in",
     careers: "careers@dpglobal.com",
-    general: "info@dpglobal.com",
+    general: "vijay.shukla@dpglobal.co.in",
   },
-  phone: "+91 22 4567 8900"
+  phone: "+919999061995 , +919891711626"
 };
 
 export const SERVICES: Service[] = [
