@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 
 const Contact: React.FC = () => {
+  // State management
+  const formRef = useRef<HTMLFormElement>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+
+  // Initialize EmailJS (replace with your actual Service ID and Public Key)
+  React.useEffect(() => {
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      emailjs.init(publicKey);
+    }
+  }, []);
+
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -23,6 +43,60 @@ const Contact: React.FC = () => {
         staggerChildren: 0.1,
         delayChildren: 0.2
       }
+    }
+  };
+
+  // Handle input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus("idle"), 3000);
+      return;
+    }
+
+    setLoading(true);
+    setSubmitStatus("idle");
+
+    try {
+      // Send email using EmailJS
+      const templateParams = {
+        to_email: "vijay.shukla@dpglobal.co.in",
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      };
+
+      // Replace SERVICE_ID and TEMPLATE_ID with your actual values
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || "",
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "",
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY || ""
+      );
+
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      
+      // Reset success message after 3 seconds
+      setTimeout(() => setSubmitStatus("idle"), 3000);
+    } catch (error) {
+      console.error("Email send error:", error);
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus("idle"), 3000);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -191,41 +265,75 @@ const Contact: React.FC = () => {
               </p>
             </div>
 
-            <form className="space-y-5">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
               <input
                 type="text"
+                name="name"
                 placeholder="Your Name"
+                value={formData.name}
+                onChange={handleInputChange}
                 required
                 className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
               />
 
               <input
                 type="email"
+                name="email"
                 placeholder="Your Email"
+                value={formData.email}
+                onChange={handleInputChange}
                 required
                 className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
               />
 
               <input
                 type="tel"
+                name="phone"
                 placeholder="Contact Number"
+                value={formData.phone}
+                onChange={handleInputChange}
                 required
                 className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
               />
 
               <textarea
+                name="message"
                 placeholder="Your Message"
+                value={formData.message}
+                onChange={handleInputChange}
                 required
                 className="min-h-[140px] w-full resize-none rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
               />
 
+              {/* Status Messages */}
+              {submitStatus === "success" && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="rounded-lg bg-green-50 p-4 text-green-800 border border-green-200"
+                >
+                  ✓ Message sent successfully! We'll get back to you soon.
+                </motion.div>
+              )}
+              
+              {submitStatus === "error" && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="rounded-lg bg-red-50 p-4 text-red-800 border border-red-200"
+                >
+                  ✗ Failed to send message. Please try again or contact directly.
+                </motion.div>
+              )}
+
               <motion.button
                 type="submit"
-                className="h-12 w-full rounded-md bg-blue-600 font-semibold text-white transition hover:bg-blue-700"
+                disabled={loading}
+                className="h-12 w-full rounded-md bg-blue-600 font-semibold text-white transition hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Submit
+                {loading ? "Sending..." : "Submit"}
               </motion.button>
             </form>
           </div>
