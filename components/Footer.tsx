@@ -1,78 +1,132 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Globe, MapPin, Phone, Mail, Linkedin, Twitter, Facebook } from 'lucide-react';
-import { COMPANY_INFO } from '../constants';
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  Globe,
+  Linkedin,
+  Twitter,
+  Facebook,
+  Plane,
+  Ship,
+  Box,
+  BarChart3,
+} from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-corporate-900 text-slate-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
-          {/* Company Brand */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2 text-white">
-              <Globe className="h-6 w-6 text-corporate-blue" />
-              <span className="text-xl font-bold">D P GLOBAL</span>
+    <footer className="bg-gradient-to-b from-[#344357] via-[#2a3a4e] to-[#1f2d3d] text-slate-200">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14">
+
+          {/* Brand */}
+          <div className="space-y-5">
+            <div className="flex items-center gap-3 text-white">
+              {/* Logo */}
+              <img
+                src="./Test/assets/Dp Global Logistics Logo.png"
+                alt="DP Global Logo"
+                className="w-17 h-17 object-contain"
+              />
             </div>
-            <p className="text-sm leading-relaxed text-slate-400">
-              {COMPANY_INFO.tagline}
-              <br/>
-              Delivering excellence in global logistics and supply chain management.
+
+            <p className="text-sm leading-relaxed text-white/95">
+              <span className="block mb-2 font-semibold text-corporate-blue">
+                Navigating Tomorrow&apos;s Supply Chain, Today.
+              </span>
+              At D P GLOBAL LOGISTICS, we began our journey in November 2021,
+              backed by over 15 years of industry experience prior to the
+              foundation of our organization.
+              <br /><br />
+              Our professional approach and deep working knowledge enable us
+              to plan and execute your material deliveries with complete
+              protection and precision at their designated destinations.
             </p>
-            <div className="flex space-x-4 pt-2">
-              <a href="#" className="hover:text-white transition-colors"><Linkedin className="h-5 w-5" /></a>
-              <a href="#" className="hover:text-white transition-colors"><Twitter className="h-5 w-5" /></a>
-              <a href="#" className="hover:text-white transition-colors"><Facebook className="h-5 w-5" /></a>
+
+            <div className="flex gap-4 pt-2">
+              <a className="hover:text-white transition cursor-pointer">
+                <Linkedin size={18} />
+              </a>
+              <a className="hover:text-white transition cursor-pointer">
+                <Twitter size={18} />
+              </a>
+              <a className="hover:text-white transition cursor-pointer">
+                <Facebook size={18} />
+              </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/" className="hover:text-corporate-gold transition-colors">Home</Link></li>
-              <li><Link to="/services" className="hover:text-corporate-gold transition-colors">Our Services</Link></li>
-              <li><Link to="/media" className="hover:text-corporate-gold transition-colors">Media & Press</Link></li>
-              <li><Link to="/contact" className="hover:text-corporate-gold transition-colors">Contact Us</Link></li>
-              <li><Link to="/contact" className="hover:text-corporate-gold transition-colors">Careers</Link></li>
+            <h3 className="mb-6 text-lg font-semibold text-white">Quick Links</h3>
+            <ul className="space-y-3 text-sm text-white/90">
+              <li>
+                <Link to="/" className="hover:text-corporate-blue transition">Home</Link>
+              </li>
+              <li>
+                <Link to="/about" className="hover:text-corporate-blue transition">About Us</Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-corporate-blue transition">Contact Us</Link>
+              </li>
+              <li>
+                <Link to="/media" className="hover:text-corporate-blue transition">News & Events</Link>
+              </li>
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Core Services */}
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Core Services</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/services" className="hover:text-corporate-gold transition-colors">Air Freight</Link></li>
-              <li><Link to="/services" className="hover:text-corporate-gold transition-colors">Ocean Freight</Link></li>
-              <li><Link to="/services" className="hover:text-corporate-gold transition-colors">Project Cargo</Link></li>
-              <li><Link to="/services" className="hover:text-corporate-gold transition-colors">Supply Chain Consulting</Link></li>
+            <h3 className="mb-6 text-lg font-semibold text-white">Core Services</h3>
+            <ul className="space-y-4 text-sm text-white/90">
+              <li className="flex items-center gap-3">
+                <Plane size={18} className="text-corporate-blue" /> Air Freight
+              </li>
+              <li className="flex items-center gap-3">
+                <Ship size={18} className="text-corporate-blue" /> Ocean Freight
+              </li>
+              <li className="flex items-center gap-3">
+                <Box size={18} className="text-corporate-blue" /> Project Cargo
+              </li>
+              <li className="flex items-center gap-3">
+                <BarChart3 size={18} className="text-corporate-blue" /> Supply Chain Consulting
+              </li>
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact */}
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Contact Us</h3>
-            <ul className="space-y-4 text-sm">
-              <li className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-corporate-blue shrink-0 mt-0.5" />
-                <span>{COMPANY_INFO.address}</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-corporate-blue shrink-0" />
-                <span>{COMPANY_INFO.phone}</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-corporate-blue shrink-0" />
-                <span>{COMPANY_INFO.emails.general}</span>
-              </li>
-            </ul>
+            <h3 className="mb-6 text-lg font-semibold text-white">Contact Us</h3>
+            <div className="space-y-5 text-sm text-white/90">
+              <p>
+                <strong className="text-white">Address:</strong><br />
+                Flat No. 123, 2nd Floor<br />
+                New Four Storey, Vishal Enclave<br />
+                Tagore Garden Extn.<br />
+                New Delhi – 110027
+              </p>
+
+              <p>
+                <strong className="text-white">Phone:</strong><br />
+                +91 9999061995<br />
+                +91 9891711626
+              </p>
+
+              <p>
+                <strong className="text-white">Email:</strong><br />
+                Sales: accounts@dpglobal.co.in<br />
+                General: vijay.shukla@dpglobal.co.in
+              </p>
+            </div>
           </div>
+
         </div>
-        
-        <div className="border-t border-slate-800 mt-12 pt-8 text-center text-xs text-slate-500">
-          <p>&copy; {new Date().getFullYear()} {COMPANY_INFO.name}. All rights reserved.</p>
+
+        {/* Bottom Bar */}
+        <div className="mt-14 border-t border-slate-700 pt-6 text-center text-xs text-white/70">
+          © {new Date().getFullYear()} D P GLOBAL. All rights reserved.
         </div>
+
       </div>
     </footer>
   );

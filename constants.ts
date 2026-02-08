@@ -23,12 +23,13 @@ export const COMPANY_INFO = {
   phone: "+919999061995 , +919891711626"
 };
 
-export const SERVICES: Service[] = [
+export const SERVICES: Array<Service & { image?: string }> = [
   {
     id: 'air-freight',
     title: "Air Freight",
     description: "Speed, global reach, and handling of time-critical shipments.",
     category: 'Freight',
+    image: "./Test/assets/Airfright.jpeg", // Added image
     icon: Plane,
     details: ["Express Global Delivery", "Time-Critical Cargo", "Charter Services"]
   },
@@ -37,6 +38,7 @@ export const SERVICES: Service[] = [
     title: "Ocean Freight",
     description: "Comprehensive FCL and LCL options with global port coverage.",
     category: 'Freight',
+    image: './Test/assets/seafright.png', // Added image
     icon: Ship,
     details: ["Full Container Load (FCL)", "Less than Container Load (LCL)", "Intermodal Solutions"]
   },
@@ -45,6 +47,7 @@ export const SERVICES: Service[] = [
     title: "Ground Transportation",
     description: "Last-mile delivery, FTL, and LTL services within India and connecting hubs.",
     category: 'Freight',
+    image: './Test/assets/Ground.png', // Added image
     icon: Truck,
     details: ["National Trucking Network", "Last-Mile Delivery", "Cross-Border Logistics"]
   },
@@ -53,6 +56,7 @@ export const SERVICES: Service[] = [
     title: "Project Cargo & Heavy Lift",
     description: "Expert handling of oversized, complex, or high-value industrial equipment.",
     category: 'Specialized',
+    image: './Test/assets/projectKargo.png', // Added image
     icon: Anchor,
     details: ["Oversized Machinery", "Industrial Plant Relocation", "Route Survey & Planning"]
   },
@@ -61,6 +65,7 @@ export const SERVICES: Service[] = [
     title: "Customs & Compliance",
     description: "Expertise in navigating complex international trade regulations.",
     category: 'Specialized',
+    image: './Test/assets/Customercompilance.png', // Added image
     icon: ClipboardCheck,
     details: ["Import/Export Clearance", "Regulatory Compliance", "Duty Drawback"]
   },
@@ -69,6 +74,7 @@ export const SERVICES: Service[] = [
     title: "Supply Chain Consulting",
     description: "Optimizing client logistics for efficiency and cost savings.",
     category: 'Consulting',
+    image: './Test/assets/consulting.jpg', 
     icon: TrendingUp,
     details: ["Network Design", "Cost Optimization", "Inventory Management"]
   }
