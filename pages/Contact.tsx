@@ -1,216 +1,236 @@
-import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
-import { COMPANY_INFO } from '../constants';
+import React from "react";
+import { motion } from "framer-motion";
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    company: '',
-    email: '',
-    phone: '',
-    type: [] as string[],
-    message: ''
-  });
-  const [submitted, setSubmitted] = useState(false);
-
-  const inquiryTypes = ['Quote', 'Partnership', 'Careers', 'General Inquiry'];
-
-  const handleCheckboxChange = (type: string) => {
-    setFormData(prev => {
-      const newTypes = prev.type.includes(type)
-        ? prev.type.filter(t => t !== type)
-        : [...prev.type, type];
-      return { ...prev, type: newTypes };
-    });
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.4, 0, 0.2, 1]
+      }
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form Submitted:', formData);
-    setSubmitted(true);
-    // Here you would integrate with an email service or backend
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const scaleIn = {
+    hidden: { scale: 0.9, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
   };
 
   return (
-    <div className="pt-16 min-h-screen bg-slate-50">
-      
-      {/* Header */}
-      <div className="bg-corporate-900 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-extrabold text-white mb-4">Contact Us</h1>
-          <p className="text-lg text-slate-400">
-            Get in touch with our expert team for quotes, support, or general inquiries.
-          </p>
+    <>
+      {/* CONTACT SECTION */}
+      <section
+        id="contact"
+        className="scroll-snap-section bg-gradient-to-b from-background via-accent/5 to-background py-24 pt-32 md:pt-40 pb-24"
+      >
+        <div className="container mx-auto px-4">
+          {/* Header */}
+          <motion.div
+            className="mx-auto mb-16 max-w-3xl text-center gpu-accelerated"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false }}
+            variants={fadeInUp}
+          >
+            <motion.div
+              className="mb-6 inline-block rounded-full border border-primary/20 bg-primary/10 px-4 py-2"
+              variants={scaleIn}
+            >
+              <span className="text-sm font-semibold text-primary">
+                Get In Touch
+              </span>
+            </motion.div>
+
+            <motion.h2 className="mb-6 text-4xl font-bold text-foreground md:text-5xl" variants={fadeInUp}>
+              Contact Us
+            </motion.h2>
+
+            <motion.p className="text-lg leading-relaxed text-muted-foreground" variants={fadeInUp}>
+              Reach out to our team for any inquiries or assistance
+            </motion.p>
+          </motion.div>
+
+          {/* Cards */}
+          <motion.div
+            className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, margin: "-50px" }}
+            variants={staggerContainer}
+          >
+            {/* CARD */}
+            {[
+              {
+                title: "General",
+                email: "vijay.shukla@dpglobal.co.in",
+                desc: "For general inquiries and information",
+                gradient: "from-orange-500/20 to-red-500/20",
+                icon: (
+                  <>
+                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                    <circle cx="12" cy="10" r="3" />
+                  </>
+                ),
+              },
+              {
+                title: "Operations",
+                email: "customerservice@dpglobal.co.in",
+                desc: "For operational support and customer service",
+                gradient: "from-purple-500/20 to-pink-500/20",
+                icon: (
+                  <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+                ),
+              },
+              {
+                title: "Sales",
+                email: "accounts@dpglobal.co.in",
+                desc: "For sales inquiries and account management",
+                gradient: "from-blue-500/20 to-cyan-500/20",
+                icon: (
+                  <>
+                    <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                  </>
+                ),
+              },
+            ].map((card, idx) => (
+              <motion.div
+                key={card.title}
+                variants={fadeInUp}
+                whileHover={{ y: -12 }}
+                className="group rounded-lg border-2 border-border bg-white bg-gradient-to-br from-card to-card/50 backdrop-blur-sm hover:border-primary/50 hover:shadow-depth-lg gpu-accelerated"
+              >
+                <div className="flex flex-col space-y-1.5 p-6">
+                  <h3 className="flex items-center gap-3 text-xl font-semibold">
+                    <motion.div
+                      className={`gpu-accelerated shadow-glow group-hover:shadow-glow-lg flex h-12 w-12 items-center justify-center rounded-xl border border-primary/20 bg-gradient-to-br ${card.gradient}`}
+                      whileHover={{ scale: 1.1, rotate: 6 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-6 w-6 text-primary"
+                      >
+                        {card.icon}
+                      </svg>
+                    </motion.div>
+                    {card.title}
+                  </h3>
+                </div>
+
+                <div className="space-y-3 p-6 pt-0">
+                  <motion.a
+                    href={`mailto:${card.email}`}
+                    className="block break-all font-medium text-primary transition-all duration-300 hover:text-secondary gpu-accelerated"
+                    whileHover={{ x: 5 }}
+                  >
+                    {card.email}
+                  </motion.a>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {card.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </div>
+      </section >
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">Headquarters</h2>
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-blue-50 rounded-lg">
-                    <MapPin className="h-6 w-6 text-corporate-blue" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-900">Corporate Office</h3>
-                    <p className="text-slate-600 mt-1">{COMPANY_INFO.address}</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-blue-50 rounded-lg">
-                    <Phone className="h-6 w-6 text-corporate-blue" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-900">Phone</h3>
-                    <p className="text-slate-600 mt-1">{COMPANY_INFO.phone}</p>
-                    <p className="text-xs text-slate-400 mt-1">Mon-Fri, 9am - 6pm IST</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                   <div className="p-3 bg-blue-50 rounded-lg">
-                      <Mail className="h-6 w-6 text-corporate-blue" />
-                   </div>
-                   <div>
-                      <h3 className="font-semibold text-slate-900">Departments</h3>
-                      <div className="mt-2 space-y-2 text-sm text-slate-600">
-                         <p><span className="font-medium text-slate-800">Sales:</span> {COMPANY_INFO.emails.sales}</p>
-                         <p><span className="font-medium text-slate-800">Careers:</span> {COMPANY_INFO.emails.careers}</p>
-                         <p><span className="font-medium text-slate-800">General:</span> {COMPANY_INFO.emails.general}</p>
-                      </div>
-                   </div>
-                </div>
-              </div>
+      {/* QUERY SECTION */}
+      <motion.section
+        id="query"
+        className="py-28 bg-gradient-to-b from-background to-accent/10"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false }}
+        variants={fadeInUp}
+      >
+        <div className="container mx-auto px-4">
+          <div className="max-w-xl mx-auto bg-card border border-border rounded-3xl shadow-xl p-8 md:p-10">
+            <div className="text-center mb-8">
+              <motion.div
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4"
+                variants={scaleIn}
+              >
+                <span className="text-sm font-semibold text-primary">
+                  Quick Contact
+                </span>
+              </motion.div>
+              <h2 className="text-3xl font-bold text-foreground">
+                Submit Your Query
+              </h2>
+              <p className="text-muted-foreground mt-2">
+                Our team will respond shortly
+              </p>
             </div>
 
-            {/* Map Placeholder */}
-            <div className="h-64 bg-slate-200 rounded-xl overflow-hidden shadow-inner flex items-center justify-center relative group">
-               <img 
-                  src="https://picsum.photos/seed/map_mumbai/800/400" 
-                  alt="Location Map" 
-                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity"
-               />
-               <div className="relative z-10 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg font-medium text-slate-700">
-                  Map View Integration
-               </div>
-            </div>
-          </div>
+            <form className="space-y-5">
+              <input
+                type="text"
+                placeholder="Your Name"
+                required
+                className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
+              />
 
-          {/* Contact Form */}
-          <div className="bg-white rounded-2xl shadow-lg border border-slate-100 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">Send us a Message</h2>
-            
-            {submitted ? (
-              <div className="h-full flex flex-col items-center justify-center text-center py-12">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                  <Send className="h-8 w-8 text-green-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">Message Sent!</h3>
-                <p className="text-slate-600">Thank you for contacting D P GLOBAL. Our team will get back to you shortly.</p>
-                <button 
-                  onClick={() => setSubmitted(false)}
-                  className="mt-8 text-corporate-blue font-medium hover:underline"
-                >
-                  Send another message
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
-                    <input 
-                      type="text" 
-                      required
-                      className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-corporate-blue focus:border-transparent outline-none transition-all"
-                      placeholder="John Doe"
-                      value={formData.name}
-                      onChange={e => setFormData({...formData, name: e.target.value})}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Company</label>
-                    <input 
-                      type="text" 
-                      className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-corporate-blue focus:border-transparent outline-none transition-all"
-                      placeholder="Company Ltd."
-                      value={formData.company}
-                      onChange={e => setFormData({...formData, company: e.target.value})}
-                    />
-                  </div>
-                </div>
+              <input
+                type="email"
+                placeholder="Your Email"
+                required
+                className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
+              />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-                    <input 
-                      type="email" 
-                      required
-                      className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-corporate-blue focus:border-transparent outline-none transition-all"
-                      placeholder="john@example.com"
-                      value={formData.email}
-                      onChange={e => setFormData({...formData, email: e.target.value})}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Phone Number</label>
-                    <input 
-                      type="tel" 
-                      className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-corporate-blue focus:border-transparent outline-none transition-all"
-                      placeholder="+91 ..."
-                      value={formData.phone}
-                      onChange={e => setFormData({...formData, phone: e.target.value})}
-                    />
-                  </div>
-                </div>
+              <input
+                type="tel"
+                placeholder="Contact Number"
+                required
+                className="w-full rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
+              />
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-3">How can we help?</label>
-                  <div className="grid grid-cols-2 gap-3">
-                    {inquiryTypes.map(type => (
-                      <label key={type} className="flex items-center space-x-3 cursor-pointer p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
-                        <input 
-                          type="checkbox" 
-                          className="w-4 h-4 text-corporate-blue border-gray-300 rounded focus:ring-corporate-blue"
-                          checked={formData.type.includes(type)}
-                          onChange={() => handleCheckboxChange(type)}
-                        />
-                        <span className="text-sm text-slate-700">{type}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
+              <textarea
+                placeholder="Your Message"
+                required
+                className="min-h-[140px] w-full resize-none rounded-xl border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-primary"
+              />
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Message</label>
-                  <textarea 
-                    rows={4}
-                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-corporate-blue focus:border-transparent outline-none transition-all"
-                    placeholder="Tell us more about your requirements..."
-                    value={formData.message}
-                    onChange={e => setFormData({...formData, message: e.target.value})}
-                  ></textarea>
-                </div>
-
-                <button 
-                  type="submit" 
-                  className="w-full py-3 bg-corporate-blue text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
-                >
-                  Submit Inquiry
-                </button>
-              </form>
-            )}
+              <motion.button
+                type="submit"
+                className="h-12 w-full rounded-md bg-blue-600 font-semibold text-white transition hover:bg-blue-700"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Submit
+              </motion.button>
+            </form>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.section>
+    </>
   );
-};
-
-export default Contact;
+}; export default Contact;
