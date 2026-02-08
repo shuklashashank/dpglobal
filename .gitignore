@@ -55,4 +55,8 @@ temp/
 .parcel-cache
 .next
 out/
+
+# Exclude .github folder BUT include GitHub workflows
+.github/
+!.github/workflows/
 .github/
